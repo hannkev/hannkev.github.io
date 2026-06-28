@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人体健康与疾病 · 复习自测工具</title>
+    <style>
+        /* ---------- 全局 ---------- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f7fafc;
+            color: #1a202c;
+            padding: 40px 20px;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+            padding: 40px 48px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            border-bottom: 4px solid #e2e8f0;
+            padding-bottom: 16px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        h1 small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #718096;
+            margin-left: auto;
+        }
+        .badge {
+            background: #ebf4ff;
+            color: #2b6cb0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 40px;
+        }
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 40px 0 16px 0;
+            padding-top: 8px;
+            border-left: 6px solid #3182ce;
+            padding-left: 18px;
+            color: #2d3748;
+        }
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 28px 0 12px 0;
+            color: #2d3748;
+        }
+        h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin: 20px 0 8px 0;
+            color: #4a5568;
+        }
+        .section-desc {
+            color: #4a5568;
+            background: #f7fafc;
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin: 8px 0 16px 0;
+            font-size: 0.95rem;
+        }
+        hr {
+            border: 0;
+            border-top: 2px dashed #e2e8f0;
+            margin: 40px 0;
+        }
+
+        /* ---------- 卡片题块 ---------- */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 18px 22px 14px 22px;
+            margin-bottom: 16px;
+            transition: box-shadow 0.15s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+        }
+        .card .q {
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 4px 0;
+            color: #1a202c;
+        }
+        .card .q .arrow {
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+            color: #4a5568;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+        .card .q .arrow.open {
+            transform: rotate(90deg);
+        }
+        .card .q .label {
+            background: #ebf8ff;
+            color: #2b6cb0;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0 10px;
+            border-radius: 40px;
+            letter-spacing: 0.02em;
+            flex-shrink: 0;
+            height: 22px;
+            line-height: 22px;
+        }
+        .card .q .label.red {
+            background: #fed7d7;
+            color: #9b2c2c;
+        }
+        .card .q .label.green {
+            background: #c6f6d5;
+            color: #276749;
+        }
+        .card .q .label.purple {
+            background: #e9d8fd;
+            color: #553c9a;
+        }
+        .card .answer {
+            margin-top: 10px;
+            padding: 14px 16px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid #3182ce;
+            display: none;
+            font-size: 0.98rem;
+            line-height: 1.8;
+            color: #2d3748;
+        }
+        .card .answer.show {
+            display: block;
+        }
+        .card .answer strong, .card .answer b {
+            color: #c53030;
+        }
+        .card .answer .highlight {
+            background: #fefcbf;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+        .card .answer ul, .card .answer ol {
+            padding-left: 24px;
+            margin: 6px 0;
+        }
+        .card .answer table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+        .card .answer table th, .card .answer table td {
+            border: 1px solid #cbd5e0;
+            padding: 6px 10px;
+            text-align: left;
+        }
+        .card .answer table th {
+            background: #edf2f7;
+            font-weight: 600;
+        }
+
+        /* ---------- 打印 ---------- */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0.2in;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                border-radius: 0;
+            }
+            .card .q .arrow, .card .q .label {
+                display: none !important;
+            }
+            .card .answer {
+                display: block !important;
+                background: #f9fafb !important;
+                border-left-color: #2b6cb0 !important;
+                padding: 8px 12px !important;
+                margin-top: 4px !important;
+                border-radius: 4px !important;
+            }
+            .card {
+                border: 1px solid #ccc !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none !important;
+                padding: 10px 14px !important;
+                margin-bottom: 10px !important;
+            }
+            h1 small { display: none; }
+            .no-print { display: none !important; }
+            .card .q { cursor: default; }
+        }
+
+        /* ---------- 工具条 ---------- */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .btn {
+            background: #edf2f7;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.05s;
+            color: #2d3748;
+        }
+        .btn:hover { background: #e2e8f0; }
+        .btn-primary {
+            background: #3182ce;
+            color: #fff;
+        }
+        .btn-primary:hover { background: #2b6cb0; }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #cbd5e0;
+        }
+        .btn-outline:hover { background: #f7fafc; }
+        .btn-sm { padding: 4px 14px; font-size: 0.8rem; }
+
+        .stats {
+            margin-left: auto;
+            font-size: 0.9rem;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .stats span { background: #edf2f7; padding: 2px 12px; border-radius: 30px; }
+
+        /* ---------- 响应式 ---------- */
+        @media (max-width: 700px) {
+            .container { padding: 20px 16px; }
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.3rem; }
+            .card { padding: 14px 16px; }
+            .toolbar { flex-direction: column; align-items: stretch; }
+            .stats { margin-left: 0; justify-content: flex-start; }
+        }
+        /* ---------- 隐藏答案统一 ---------- */
+        .card .answer.hide-print {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+
+    <h1>
+        📘 人体健康与疾病 · 复习自测
+        <small>点击题目展开答案 · 自测背诵</small>
+    </h1>
+
+    <!-- 工具栏 -->
+    <div class="toolbar no-print">
+        <button class="btn btn-primary" onclick="expandAll()">📖 展开全部答案</button>
+        <button class="btn btn-outline" onclick="collapseAll()">📕 收起全部答案</button>
+        <button class="btn btn-outline" onclick="toggleAll()">🔄 切换全部</button>
+        <span class="stats">
+            <span id="showCount">0</span> / <span id="totalCount">0</span> 已展开
+        </span>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 以下为全部知识点卡片，按章分级，重点文字用 <strong> 包裹    -->
+    <!-- 可自行增删改，格式保持一致即可                                -->
+    <!-- ============================================================ -->
+
+    <!-- ==================== 第一讲 绪论 ==================== -->
+    <h2>第一讲 · 绪论</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">概念</span> 什么是生命科学？</span>
+        </div>
+        <div class="answer">研究生命现象、生命活动的本质、特征和发生发展规律，以及各种生物之间和生物与环境之间相互关系的科学。用于有效控制生命活动，改造生物界，造福人类。涉及生物技术、医学、农学、生物与环境、交叉学科。与人类生存、健康、经济建设和社会发展密切相关。</div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 20世纪下半叶生命科学重大突破</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>1953 DNA双螺旋模型</strong> — 分子生物学诞生，1962年诺奖。</li>
+                <li><strong>1965 人工合成牛胰岛素</strong>（中国）— 突破生物大分子界限，与诺奖擦肩。</li>
+                <li><strong>1970s 基因重组技术</strong> — 限制性内切酶(1978诺奖)、逆转录酶(1975诺奖)。</li>
+                <li><strong>1980s PCR技术</strong> — Mulis获1995年诺奖；<span class="highlight">模板极少(1个分子)、扩增极快(1000万倍以上)</span>。</li>
+                <li><strong>1997 克隆羊"多莉"</strong> — Wilmut <em>Nature</em> 1997；中国1981年克隆鲫鱼。</li>
+                <li><strong>2003 人类基因组计划完成</strong> — 1990–2003，6国参与，耗资26亿美元，30亿碱基。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">特点</span> 21世纪生命科学研究四大特点</span>
+        </div>
+        <div class="answer">
+            <ol>
+                <li><strong>组学研究</strong>使分析与综合结合</li>
+                <li>由描述性、定性走向<strong>精确定量</strong></li>
+                <li><strong>多学科深度交叉融合</strong></li>
+                <li><strong>新技术和新方法</strong>的建立和引入</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 致病三要素 &amp; 免疫三大功能</span>
+        </div>
+        <div class="answer">
+            <p><strong>致病三要素：</strong>病原体因素 + 环境因素 + 宿主因素。<br>
+            <span class="highlight">核心观点：Balance is Key!</span></p>
+            <table>
+                <tr><th>功能</th><th>正常</th><th>异常</th></tr>
+                <tr><td><strong>免疫防御</strong></td><td>抗病原微生物</td><td>超敏反应(过度) / 免疫缺陷(不足)</td></tr>
+                <tr><td><strong>免疫监视</strong></td><td>防止细胞癌变</td><td>肿瘤 / 持续性感染</td></tr>
+                <tr><td><strong>免疫自稳</strong></td><td>清除衰老细胞，自身耐受</td><td>自身免疫病</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">概念</span> 什么是大健康？</span>
+        </div>
+        <div class="answer">围绕人的<strong>衣食住行、生老病死</strong>，对生命实施<strong>全程、全面、全要素</strong>的呵护，既追求个体生理、身体健康，也追求心理、精神等各方面的健康。实现路径：树立大健康理念、进行大健康教育、创新大健康技术、发展大健康产业、完善大健康服务。</div>
+    </div>
+
+    <!-- ==================== 第二讲 细胞结构与功能 ==================== -->
+    <h2>第二讲 · 细胞的结构与功能</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 细胞学说三要点</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li>所有生物都是由<strong>细胞和细胞的产物</strong>组成（结构）</li>
+                <li>新的细胞必须经过<strong>已存在细胞的分裂</strong>而产生（繁殖遗传）</li>
+                <li>每一个细胞可以是独立的生命单位，许多细胞又可共同形成生物体（生命活动）</li>
+            </ul>
+            <p><em>施莱登(1838) + 施旺(1839)，19世纪自然科学三大发现之一。</em></p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">基础</span> 细胞为什么大多数都很小？</span>
+        </div>
+        <div class="answer">
+            <ol>
+                <li><strong>适当的表面积/体积比</strong> — 保证物质交换效率</li>
+                <li><strong>合适的核质比</strong> — 细胞核对细胞质的调控能力受限</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 原核 vs 真核细胞对比</span>
+        </div>
+        <div class="answer">
+            <table>
+                <tr><th>特征</th><th>原核细胞</th><th>真核细胞</th></tr>
+                <tr><td>大小</td><td>1~10μm</td><td>3~100μm</td></tr>
+                <tr><td>遗传物质</td><td>裸露环状DNA</td><td>线状DNA + 蛋白质（染色体）</td></tr>
+                <tr><td>细胞核</td><td>无（拟核）</td><td>有（核膜、核仁）</td></tr>
+                <tr><td>细胞器</td><td>仅核糖体70S</td><td>多种膜性细胞器，核糖体80S</td></tr>
+                <tr><td>细胞骨架</td><td>无</td><td>有</td></tr>
+                <tr><td>分裂方式</td><td>无丝分裂</td><td>有丝分裂 / 减数分裂</td></tr>
+                <tr><td>转录/翻译</td><td>同在细胞质</td><td>转录在核，翻译在细胞质</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label purple">易混淆</span> 真核细胞三大结构体系</span>
+        </div>
+        <div class="answer">
+            <ol>
+                <li><strong>膜结构体系</strong> — 质膜、核膜、内质网、高尔基体、溶酶体、线粒体</li>
+                <li><strong>遗传信息结构体系</strong> — 染色质、核仁、核糖体</li>
+                <li><strong>细胞骨架体系</strong> — 微丝、微管、中间纤维</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 流动镶嵌模型 vs 脂筏模型</span>
+        </div>
+        <div class="answer">
+            <p><strong>流动镶嵌模型：</strong>①有序性（脂双层为骨架） ②<strong>流动性</strong>（膜蛋白和膜脂侧向运动） ③不对称性</p>
+            <p><strong>脂筏模型：</strong>富含胆固醇和鞘磷脂的微区，便于<strong>蛋白聚集和相互作用</strong>，提供利于蛋白变构的微环境。</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">功能</span> 细胞质膜基本功能</span>
+        </div>
+        <div class="answer">
+            <ol>
+                <li>选择性物质运输</li>
+                <li>提供细胞识别结合位点</li>
+                <li>完成细胞内外信号跨膜转导</li>
+                <li>介导细胞连接</li>
+                <li>作为疾病治疗的药物靶标</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 内质网、高尔基体、溶酶体功能</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>糙面内质网(RER)</strong>：<span class="highlight">蛋白质合成、修饰、折叠、运输</span>（附核糖体）</li>
+                <li><strong>光面内质网(SER)</strong>：脂类合成、解毒(肝细胞)、Ca²⁺调节(肌细胞)、糖原分解</li>
+                <li><strong>高尔基体</strong>：蛋白质加工、<span class="highlight">糖基化、分选运输</span> — "细胞大分子运输的交通枢纽"</li>
+                <li><strong>溶酶体</strong>：含60多种酸性水解酶 → 细胞消化，<span class="highlight">自溶</span>；膜特点：质子泵、载体蛋白、高度糖基化</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 线粒体 — "能量工厂"</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li>双层膜，内膜向内折叠成<strong>嵴</strong>，含<strong>ATP酶复合体</strong></li>
+                <li>含DNA和核糖体 → <strong>第二遗传信息系统</strong></li>
+                <li>功能：能量代谢、氧自由基生成、信号转导、<strong>调控细胞凋亡</strong></li>
+                <li>mtDNA变异与<strong>100多种人类疾病</strong>有关 → 线粒体医学</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label purple">易混淆</span> 微丝、微管、中间纤维对比</span>
+        </div>
+        <div class="answer">
+            <table>
+                <tr><th>类型</th><th>直径</th><th>组成</th><th>功能</th></tr>
+                <tr><td><strong>微丝</strong></td><td>7nm</td><td>肌动蛋白</td><td>肌肉收缩、分裂沟、胞吞胞吐</td></tr>
+                <tr><td><strong>微管</strong></td><td>25nm</td><td>α/β微管蛋白</td><td>支架、物质运输、染色体分离(纺锤体)</td></tr>
+                <tr><td><strong>中间纤维</strong></td><td>8~10nm</td><td>组织特异性蛋白</td><td>锚定核、机械强度、细胞连接</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ==================== 第三讲 细胞生命活动 ==================== -->
+    <h2>第三讲 · 细胞的生命活动</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 细胞周期四个时相</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>G₁期</strong>：DNA合成准备期，细胞生长；可进入G₀期（暂不增殖）</li>
+                <li><strong>S期</strong>：DNA合成期，DNA复制、染色体复制</li>
+                <li><strong>G₂期</strong>：分裂准备期</li>
+                <li><strong>M期</strong>：分裂期（核分裂 + 胞质分裂）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 细胞周期调控三大层面</span>
+        </div>
+        <div class="answer">
+            <ol>
+                <li><strong>周期蛋白(Cyclin) + CDK激酶</strong> — 引擎分子，周期性变化</li>
+                <li><strong>癌基因和抑癌基因</strong> — 原癌基因突变→癌基因；抑癌基因失活→肿瘤</li>
+                <li><strong>外界因素</strong>：辐射、化学物质、病毒感染、温度、pH</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 有丝分裂 vs 减数分裂</span>
+        </div>
+        <div class="answer">
+            <table>
+                <tr><th>特征</th><th>有丝分裂</th><th>减数分裂</th></tr>
+                <tr><td>染色体复制</td><td>1次</td><td>1次</td></tr>
+                <tr><td>细胞分裂</td><td>1次</td><td>2次</td></tr>
+                <tr><td>同源染色体配对</td><td>无</td><td>有</td></tr>
+                <tr><td>姐妹染色体交换</td><td>无</td><td>有</td></tr>
+                <tr><td>子细胞数</td><td>2</td><td>4</td></tr>
+                <tr><td>子细胞染色体数</td><td>2n</td><td>n</td></tr>
+                <tr><td>细胞类型</td><td>体细胞</td><td>生殖细胞</td></tr>
+            </table>
+            <p>减数分裂是<strong>遗传变异</strong>的主要原因（自由组合 + 交换重组），是有性生殖、进化、多样性的保证。</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">概念</span> 细胞分化的本质是什么？</span>
+        </div>
+        <div class="answer">细胞分化是指在个体发育中，同一来源细胞分裂后逐渐在形态、结构和功能上形成稳定性差异的过程。<strong>本质：基因选择性表达</strong>。<br>
+        <span class="highlight">组合调控</span>（多种调控蛋白共同决定） + <strong>主导基因</strong>（起决定性作用的调控基因）。</div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 细胞衰老三大分子机制</span>
+        </div>
+        <div class="answer">
+            <ol>
+                <li><strong>端粒学说</strong>（复制性衰老）— Hayflick界限：体外培养细胞分裂次数有限</li>
+                <li><strong>氧化损伤理论</strong>（压力诱导早熟性衰老）</li>
+                <li><strong>程序性衰老学说</strong>（特定基因开启/关闭）</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label purple">易混淆</span> 凋亡 vs 焦亡 vs 铁死亡 vs 自噬性死亡</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>凋亡</strong>：主动、基因调控、质膜完整、凋亡小体 → 被吞噬，无炎症</li>
+                <li><strong>焦亡</strong>：病原体感染，膜穿孔，释放大量炎性因子 → <span class="highlight">强烈炎症反应</span></li>
+                <li><strong>铁死亡</strong>：铁依赖的脂质过氧化 → 膜损伤</li>
+                <li><strong>自噬性死亡</strong>：溶酶体降解自身物质，过多或过少均有害</li>
+                <li><strong>病理性坏死</strong>：非程序性，由不利因素导致</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== 第四讲 细胞工程 ==================== -->
+    <h2>第四讲 · 细胞工程</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">概念</span> 什么是细胞工程？</span>
+        </div>
+        <div class="answer">通过<strong>细胞水平</strong>的筛选或改造，获得商业价值的细胞株、细胞系或组织，再通过规模培养获得特殊商品的技术与过程。研究对象：动植物细胞、细胞器、染色体、细胞核、胚胎。核心技术：<strong>细胞培养与繁殖</strong>。被称为<strong>现代生物技术的桥梁和纽带</strong>。</div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 单克隆抗体技术（杂交瘤）</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>Kohler & Milstein，1975，1984年诺奖</strong></li>
+                <li>原理：<span class="highlight">B细胞 + 骨髓瘤细胞 → 杂交瘤</span> → 无限增殖 + 产生特异性抗体</li>
+                <li><strong>三大应用</strong>：①科学研究（蛋白检测/定位） ②诊断工具（病理定位、白血病分型） ③<strong>疾病治疗</strong>（肿瘤靶向、检查点阻断、自身免疫病、移植排斥）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 转基因动物建立方法与生物反应器</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>显微注射法</strong>（最常用）：优点—制备简单、基因容量大；缺点—整合效率低、随机插入</li>
+                <li><strong>病毒载体法</strong>：优点—整合效率高；缺点—基因大小受限(&lt;9.5kb)</li>
+                <li><strong>动物生物反应器</strong>：目的基因在器官/组织中表达，可生产<strong>具有生物活性的大分子药物</strong>（抗凝血酶III、EPO、凝血因子等），易于提纯，可大规模生产</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== 第五讲 干细胞 ==================== -->
+    <h2>第五讲 · 干细胞</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 干细胞四大生物学特征</span>
+        </div>
+        <div class="answer">
+            <ol>
+                <li><strong>形态生化</strong>：体积小、核质比大、端粒酶活性高</li>
+                <li><strong>独特增殖</strong>：缓慢性增殖 → 过渡放大细胞；<span class="highlight">自稳定性</span>；对称/不对称分裂</li>
+                <li><strong>多向分化</strong>：全能 > 多潜能 > 多能 > 单能；<span class="highlight">分化可塑性</span>（转分化、去分化）</li>
+                <li><strong>微环境调控</strong>：干细胞巢（干细胞+外围细胞+调控因子）</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 干细胞按分化潜能分类</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>全能干细胞</strong>：形成完整个体（受精卵、8细胞以内卵裂球）</li>
+                <li><strong>多潜能干细胞</strong>：分化出多种组织，不能形成完整个体（ESC、iPS）</li>
+                <li><strong>多能干细胞</strong>：分化形成多种细胞类型（造血干细胞）</li>
+                <li><strong>单能干细胞</strong>：只向一种/密切相关细胞分化（表皮干细胞）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> ESC vs iPS</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>ESC</strong>：来自胚泡内细胞团，需饲养层维持未分化；标志：AKP⁺、SSEA-1、Oct4、Nanog、Sox2；金标准：<span class="highlight">形成嵌合体</span></li>
+                <li><strong>iPS</strong>：山中伸弥(2006)导入<strong>Oct4、Sox2、Klf4、c-Myc</strong> → 成纤维细胞转化为多能干细胞；<span class="highlight">无伦理学问题</span></li>
+                <li>iPS与ESC：表达相同多能性标志，全基因组几乎相同，可培育出小鼠个体</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label purple">易混淆</span> 成体干细胞 vs 围产期干细胞 vs 肿瘤干细胞</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>成体干细胞(ASC)</strong>：分布在成体组织中（造血干细胞、神经干细胞等）</li>
+                <li><strong>围产期干细胞(PSC)</strong>：脐带、胎盘、脐血、羊水来源；<span class="highlight">来源丰富、无伦理障碍、免疫原性低</span></li>
+                <li><strong>肿瘤干细胞(CSC)</strong>：数量极少(~1%)，自我更新，<span class="highlight">高度耐药</span>，是肿瘤复发和耐药的根源</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== 第六讲 人体健康与疾病 ==================== -->
+    <h2>第六讲 · 人体健康与疾病</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">概念</span> WHO健康定义</span>
+        </div>
+        <div class="answer">健康不仅是没有疾病和衰弱，而且是<strong>身体上、精神上、社会上的完满状态</strong>。包含：躯体健康、心理健康、社会适应良好、道德健康。</div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 健康四大基石</span>
+        </div>
+        <div class="answer"><strong>平衡饮食、适量运动、戒烟限酒、心理平衡</strong></div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 疾病病因分类</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>生物性</strong>：病原体（细菌、病毒、寄生虫）</li>
+                <li><strong>遗传性</strong>：基因突变（分子病）、染色体畸变（染色体病）、遗传易感性</li>
+                <li><strong>免疫性</strong>：超敏反应、自身免疫病、免疫缺陷病</li>
+                <li><strong>理化性</strong>：物理（辐射、温度）、化学（毒物）</li>
+                <li><strong>精神心理社会</strong>：情绪、压力、生活方式</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 死亡标准 &amp; 亚健康</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>传统心死亡</strong>：濒死期 → 临床死亡期 → 生物学死亡期</li>
+                <li><strong>现代死亡标准：脑死亡</strong>（全脑功能不可逆停止）<br>
+                <span class="highlight">"4-3-2定律"：脑干死亡 = 脑死亡 = 死亡</span></li>
+                <li><strong>植物状态</strong>：不可逆深昏迷，丧失意识，但脑干维持呼吸和心跳</li>
+                <li><strong>亚健康</strong>：介于健康和疾病之间的"第三状态"</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label purple">易混淆</span> 肥大、增生、萎缩、化生</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>肥大</strong>：细胞/组织体积增大（生理性：运动员肌肉、妊娠子宫；病理性：高血压心肌）</li>
+                <li><strong>增生</strong>：实质细胞数量增多（生理性：哺乳期乳腺；病理性：肝再生）</li>
+                <li><strong>萎缩</strong>：实质细胞体积/数目减少（生理性退化；病理性全身/局部）</li>
+                <li><strong>化生</strong>：一种分化成熟细胞→另一种（仅上皮细胞间或间叶细胞间）</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== 第七讲 免疫防御体系 ==================== -->
+    <h2>第七讲 · 人体免疫防御体系</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">概念</span> 免疫系统组成</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>免疫器官</strong>：中枢（胸腺、骨髓）+ 外周（淋巴结、脾脏、黏膜相关淋巴组织）</li>
+                <li><strong>免疫细胞</strong>：淋巴细胞(T/B)、单核吞噬细胞、树突状细胞、粒细胞、肥大细胞</li>
+                <li><strong>免疫分子</strong>：TLR、TCR、BCR、MHC、抗体、补体、细胞因子、CD分子</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 关键免疫分子功能</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>TLR</strong>：识别PAMP，连接天然免疫和适应性免疫</li>
+                <li><strong>TCR</strong>：T细胞特异性识别抗原-MHC复合物</li>
+                <li><strong>BCR</strong>：B细胞膜表面免疫球蛋白，特异性识别抗原</li>
+                <li><strong>MHC</strong>：编码MHC分子，决定组织相容性，参与抗原递呈，<span class="highlight">高度多态性</span></li>
+                <li><strong>抗体</strong>：中和、调理、激活补体、ADCC</li>
+                <li><strong>补体</strong>："职业杀手" — 溶菌、趋化、调理</li>
+                <li><strong>细胞因子</strong>：免疫部队"军事语言" — 抗细菌/病毒/肿瘤、调节免疫、促组织修复</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 固有免疫 vs 适应性免疫</span>
+        </div>
+        <div class="answer">
+            <table>
+                <tr><th>固有免疫</th><th>适应性免疫</th></tr>
+                <tr><td>遗传性、迅速应答、<strong>无记忆</strong></td><td>特异性、获得性、多样性、<strong>记忆性</strong></td></tr>
+                <tr><td>屏障、吞噬细胞、NK、补体</td><td>T细胞（细胞免疫）、B细胞→抗体（体液免疫）</td></tr>
+                <tr><td>第一、二道防线</td><td>第三道防线</td></tr>
+            </table>
+            <p><strong>免疫记忆</strong>：再次应答更迅速、更强烈（潜伏期短、抗体滴度高、以IgG为主）</p>
+        </div>
+    </div>
+
+    <!-- ==================== 第八讲 免疫应答 ==================== -->
+    <h2>第八讲 · 免疫应答</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 超敏反应四型对比</span>
+        </div>
+        <div class="answer">
+            <table>
+                <tr><th>类型</th><th>名称</th><th>介导物</th><th>特点</th><th>代表疾病</th></tr>
+                <tr><td><strong>I型</strong></td><td>速发型/过敏</td><td><strong>IgE</strong></td><td>出现快消退快、功能紊乱</td><td>花粉症、哮喘、食物过敏</td></tr>
+                <tr><td><strong>II型</strong></td><td>细胞毒型</td><td>IgG/IgM+补体</td><td>靶细胞溶解</td><td>新生儿溶血症、AIHA、重症肌无力</td></tr>
+                <tr><td><strong>III型</strong></td><td>免疫复合物型</td><td>IgG/IgM/IgA+IC</td><td>IC沉积→炎症</td><td>SLE、类风湿、血清病、肾炎</td></tr>
+                <tr><td><strong>IV型</strong></td><td>迟发型</td><td><strong>致敏T细胞</strong></td><td>24~72h、与抗体补体无关</td><td>结核菌素试验、接触性皮炎</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 免疫缺陷病（IDD）</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>定义</strong>：免疫系统任一成分缺失或功能不全 → 免疫功能障碍</li>
+                <li><strong>分类</strong>：原发性(遗传/先天) vs 继发性(感染/HIV、肿瘤、药物、放射线)</li>
+                <li><strong>特点</strong>：感染易感性↑、恶性肿瘤↑、自身免疫病↑、遗传倾向</li>
+                <li><strong>治疗</strong>：骨髓移植(免疫重建)、基因治疗、输注Ig、抗感染</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 移植排斥（HVGD vs GVHD）</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>HVGD</strong>：受者免疫系统攻击移植物（如肾移植）</li>
+                <li><strong>GVHD</strong>：移植物中免疫细胞攻击宿主（如骨髓移植）<br>
+                条件：①供受者MHC不合 ②移植物含成熟T细胞 ③受者免疫低下<br>
+                靶器官：皮肤、肝脏、小肠、免疫器官</li>
+                <li><strong>移植抗原</strong>：ABO(超急性) → MHC(急性) → 次要抗原(慢性)</li>
+                <li><strong>关键效应细胞</strong>：同种反应性T细胞（Th1、CTL、Th17）</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== 第九讲 主要致病微生物 ==================== -->
+    <h2>第九讲 · 主要致病微生物及感染性疾病</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> HIV / AIDS</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li>反转录病毒（RNA），攻击<strong>CD4⁺T淋巴细胞</strong> → 免疫功能严重缺损</li>
+                <li>传播：性传播(75~85%)、血液、吸毒、母婴</li>
+                <li>潜伏期平均9~10年；致死原因：机会性感染/肿瘤(Kaposi肉瘤、淋巴瘤)</li>
+                <li><span class="highlight">黄金阻断时间：感染后2小时，不超过72小时</span></li>
+                <li>不通过游泳池/蚊子传播（病毒离体难生存）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 乙肝五项（两对半）</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>HBsAg(+)</strong> = 病毒感染指标</li>
+                <li><strong>HBeAg(+)</strong> = 病毒复制指标，传染性强（与HBV-DNA平行）</li>
+                <li><strong>抗-HBc(+)</strong> = 既往/现感染标志</li>
+                <li><span class="highlight">"大三阳"</span>（HBsAg⁺, HBeAg⁺, 抗-HBc⁺）= 病毒复制活跃，传染性强</li>
+                <li><span class="highlight">"小三阳"</span>（HBsAg⁺, 抗-HBe⁺, 抗-HBc⁺）= 病毒复制减弱</li>
+                <li>健康成年人约90%可痊愈；新生儿感染约90%转为慢性 → 肝硬化 → 肝癌</li>
+                <li>HBV传染性比HIV强50~100倍，体外可存活至少7天</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 朊病毒（Prion）</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>本质：具有感染性的蛋白质（无核酸）</strong></li>
+                <li>无免疫原性、不诱发干扰素、对核酸酶不敏感</li>
+                <li>灭活：蛋白酶K、尿素、苯酚可失活；高温、紫外线、甲醛、核酸酶耐受</li>
+                <li>疾病：传染性海绵状脑病（库鲁病、克-雅氏病CJD、疯牛病BSE）</li>
+                <li><span class="highlight">潜伏期极长（平均20年，最长50年），发病前无法检测</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 幽门螺杆菌 &amp; 结核杆菌</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>幽门螺杆菌</strong>：革兰阴性、微需氧、多鞭毛；<span class="highlight">WHO I类致癌原</span>（胃癌、MALT淋巴瘤）；尿素酶产生"氨云"抵御胃酸</li>
+                <li><strong>结核杆菌</strong>：细胞壁含大量脂质 → <span class="highlight">抗酸染色阳性</span>；专性需氧，生长缓慢；PPD试验：≥5mm阳性，≥15mm强阳性</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 疟疾 &amp; 耐药性</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>疟疾</strong>：疟原虫 + 按蚊传播；中间宿主(人) + 终末宿主(蚊)；<span class="highlight">青蒿素</span>每年在非洲挽救约10万人生命</li>
+                <li><strong>耐药性(AMR)</strong>：微生物阻止抗菌素作用；成因：自然演变 + 药品使用不当 + 畜牧业亚治疗剂量使用<br>
+                <span class="highlight">"今天不采取行动，明天就无药可用！"</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== 第十讲 自身免疫性疾病 ==================== -->
+    <h2>第十讲 · 自身免疫性疾病</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 自身耐受的层次与机制</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>中枢耐受</strong>：胸腺/骨髓中阴性选择 → 自身反应性细胞凋亡<br>
+                <span class="highlight">阳性选择（MHC限制性）+ 阴性选择（自身耐受性）</span></li>
+                <li><strong>外周耐受</strong>：克隆无能（无第二信号）、克隆清除（AICD）、克隆忽视（低浓度/低亲和力）、调节性T细胞</li>
+                <li><strong>免疫豁免部位</strong>：脑、眼前房、子宫、睾丸；屏障 + 抑制性细胞因子(TGF-β、IL-10) + FasL</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> AID致病因素 &amp; 代表疾病</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>致病因素</strong>：隐蔽抗原释放、抗原改变、分子模拟、表位扩张、免疫忽视、年龄/性激素、环境、遗传(APS-1/IPEX/ALPS)</li>
+                <li><strong>代表疾病（按损伤机制）</strong>：<br>
+                II型：AIHA、新生儿溶血、<span class="highlight">重症肌无力（AChR抗体）</span><br>
+                III型：SLE、类风湿关节炎<br>
+                IV型：<span class="highlight">多发性硬化(MS)</span>、I型糖尿病</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== 第十一讲 炎症 ==================== -->
+    <h2>第十一讲 · 炎症</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 炎症三大基本病理变化</span>
+        </div>
+        <div class="answer">
+            <ol>
+                <li><strong>变质</strong>：组织变性坏死</li>
+                <li><strong>渗出</strong>：血管反应 → 液体+白细胞渗出<br>
+                <span class="highlight">细胞渗出四步：边集 → 粘附 → 游出 → 趋化</span><br>
+                白细胞三大作用：<strong>吞噬、免疫、组织损伤</strong></li>
+                <li><strong>增生</strong>：炎症后期/慢性，修复作用</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 炎症局部表现 &amp; 全身反应</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>局部：红、肿、热、痛、功能障碍</strong><br>
+                红（充血）、肿（充血+渗出）、热（血管扩张+代谢↑）、痛（K⁺/H⁺刺激、压迫、炎症介质）、功能障碍（损伤+压迫+疼痛）</li>
+                <li><strong>全身</strong>：发热（内生致热原）、白细胞升高、巨噬细胞系统增生、实质器官损伤</li>
+                <li><strong>血行蔓延四阶段</strong>：菌血症 → 毒血症 → 败血症 → 脓毒败血症</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">概念</span> PAMP / DAMP / PRR</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>PAMP</strong>：病原相关分子模式（如LPS、肽聚糖）</li>
+                <li><strong>DAMP</strong>：损伤相关分子模式（ATP、核酸、HMGB1、尿酸结晶、胆固醇结晶、β-淀粉样肽）</li>
+                <li><strong>PRR</strong>：模式识别受体（TLR、NLR、RLR），识别PAMP/DAMP → 介导固有免疫</li>
+                <li><strong>炎症小体</strong>：炎症信号转导核心复合物</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== 第十二讲 肿瘤 ==================== -->
+    <h2>第十二讲 · 肿瘤</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 肿瘤十大特征 &amp; 细胞癌变</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li>正常细胞：分化有序、有限制 → 癌细胞：增殖迅速、分化缺失/异常</li>
+                <li><strong>十大特征</strong>：自给自足生长信号、抗生长信号不敏感、回避凋亡、避免免疫摧毁、无限复制、持续血管生成、<span class="highlight">浸润转移</span>、促肿瘤炎症、代谢异常、基因组不稳定</li>
+                <li><strong>原癌基因</strong>：正常基因，突变→癌基因；产物：生长因子、受体、信号蛋白、激酶、转录因子</li>
+                <li><strong>抑癌基因</strong>：双等位基因失活→失去抑癌功能（隐性癌基因）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 良性 vs 恶性肿瘤</span>
+        </div>
+        <div class="answer">
+            <table>
+                <tr><th>特征</th><th>良性</th><th>恶性</th></tr>
+                <tr><td>分化程度</td><td>分化好</td><td>分化差，异型性大</td></tr>
+                <tr><td>核分裂象</td><td>无/稀少</td><td>多见，<strong>病理性核分裂</strong></td></tr>
+                <tr><td>生长方式</td><td><strong>膨胀性</strong>，有包膜</td><td><strong>浸润性</strong>，无包膜</td></tr>
+                <tr><td>转移</td><td>不转移</td><td>常有转移</td></tr>
+                <tr><td>复发</td><td>少复发</td><td>易复发</td></tr>
+                <tr><td>对机体影响</td><td>较小（压迫阻塞）</td><td>严重（破坏+转移+恶病质）</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 肿瘤治疗 &amp; 免疫检查点</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>四大疗法</strong>：手术、化疗、放疗、<span class="highlight">生物治疗（免疫治疗）</span></li>
+                <li><strong>靶向治疗</strong>：小分子(EGFR/ALK/PARP) + 大分子单抗(HER2/CD20) + 抗血管(VEGF)</li>
+                <li><strong>免疫检查点</strong>：CTLA-4（艾利森）、PD-1（本庶佑）→ 2018年诺贝尔奖；PD-L1（陈列平）<br>
+                <span class="highlight">机制：抑制T细胞"刹车器"，重新激活T细胞杀伤肿瘤</span></li>
+                <li><strong>CAR-T</strong>：嵌合抗原受体T细胞，特异性识别肿瘤抗原</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">概念</span> 肿瘤三级预防</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>一级预防</strong>：消除/减少致癌因素 → 预防发生</li>
+                <li><strong>二级预防</strong>：早期发现、早期诊断、早期治疗（"三早"）</li>
+                <li><strong>三级预防</strong>：康复、提高生活质量、延长生命</li>
+            </ul>
+            <p><span class="highlight">1/3可预防，1/3可早诊早治，1/3可减轻痛苦延长寿命</span></p>
+        </div>
+    </div>
+
+    <!-- ==================== 第十三讲 基因与健康 ==================== -->
+    <h2>第十三讲 · 基因与健康</h2>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 单基因病遗传类型</span>
+        </div>
+        <div class="answer">
+            <table>
+                <tr><th>类型</th><th>代表疾病</th><th>遗传特点</th></tr>
+                <tr><td><strong>常染色体显性(AD)</strong></td><td>软骨发育不全、多指、亨廷顿病、家族性高胆固醇血症</td><td>无性别差异、连续遗传、家族聚集</td></tr>
+                <tr><td><strong>常染色体隐性(AR)</strong></td><td>白化病、PKU、镰刀形贫血、先天性聋哑</td><td>无性别差异、隔代遗传、近亲高发</td></tr>
+                <tr><td><strong>X连锁显性(XD)</strong></td><td>抗维生素D佝偻病</td><td>女性多、交叉遗传、男患者女儿全发病</td></tr>
+                <tr><td><strong>X连锁隐性(XR)</strong></td><td>血友病、红绿色盲、进行性肌营养不良</td><td>男性多、隔代遗传、交叉遗传</td></tr>
+                <tr><td><strong>Y连锁</strong></td><td>外耳道多毛症</td><td>仅男性、代代相传</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label red">核心考点</span> 重点单基因病机制</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>苯丙酮尿症(PKU)</strong>：苯丙氨酸羟化酶缺陷 → 苯丙氨酸堆积 → 智力低下、鼠嗅味；治疗：限制膳食苯丙氨酸</li>
+                <li><strong>镰刀形贫血</strong>：<span class="highlight">血红蛋白β链第6位谷氨酸→缬氨酸</span>（单个氨基酸替换）</li>
+                <li><strong>亨廷顿病(HD)</strong>：4号染色体<strong>CAG重复扩增</strong>（正常10~34，患者≥40）</li>
+                <li><strong>家族性高胆固醇血症</strong>：LDL受体基因突变(19号染色体)</li>
+                <li><strong>血友病</strong>：凝血因子VIII/IX缺乏</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label purple">易混淆</span> 多基因病 vs 染色体病 vs 细胞质遗传病</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>多基因病</strong>：多对基因 + 环境 → 遗传易感性（糖尿病、高血压、精神分裂症）</li>
+                <li><strong>染色体病</strong>：数目/结构异常（21三体唐氏综合征、猫叫综合征5号短臂缺失）</li>
+                <li><strong>细胞质遗传病（线粒体病）</strong>：<span class="highlight">母系遗传</span>（Leber遗传性视神经病）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q" onclick="toggleCard(this)">
+            <span class="arrow">▶</span>
+            <span><span class="label">概念</span> 基因诊断特点 &amp; 治疗三层次</span>
+        </div>
+        <div class="answer">
+            <ul>
+                <li><strong>基因诊断特点</strong>：①不受材料来源影响 ②症状前诊断 ③产前诊断（逆向诊断：基因型→表现型）</li>
+                <li><strong>治疗三层次</strong>：<br>
+                ①生理水平：对症治疗（PKU限苯丙氨酸）<br>
+                ②蛋白质水平：补充缺失蛋白（血友病补凝血因子VIII）<br>
+                ③基因水平：基因治疗（修复/置换/增补缺陷基因）</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== 底部 ==================== -->
+    <div style="text-align:center; margin-top:48px; padding:20px 0; border-top:1px solid #e2e8f0; color:#718096; font-size:0.9rem;">
+        📌 共 <span id="totalCards">0</span> 个知识点卡片 · 点击题目展开答案 · 打印自动隐藏按钮
+    </div>
+
+</div>
+
+<script>
+    // ---------- 工具函数 ----------
+    function toggleCard(el) {
+        const card = el.closest('.card');
+        if (!card) return;
+        const ans = card.querySelector('.answer');
+        const arrow = card.querySelector('.arrow');
+        if (!ans) return;
+        if (ans.classList.contains('show')) {
+            ans.classList.remove('show');
+            if (arrow) arrow.classList.remove('open');
+        } else {
+            ans.classList.add('show');
+            if (arrow) arrow.classList.add('open');
+        }
+        updateStats();
+    }
+
+    function expandAll() {
+        document.querySelectorAll('.card .answer').forEach(ans => ans.classList.add('show'));
+        document.querySelectorAll('.card .arrow').forEach(a => a.classList.add('open'));
+        updateStats();
+    }
+
+    function collapseAll() {
+        document.querySelectorAll('.card .answer').forEach(ans => ans.classList.remove('show'));
+        document.querySelectorAll('.card .arrow').forEach(a => a.classList.remove('open'));
+        updateStats();
+    }
+
+    function toggleAll() {
+        const shown = document.querySelectorAll('.card .answer.show').length;
+        const total = document.querySelectorAll('.card .answer').length;
+        if (shown === total) {
+            collapseAll();
+        } else {
+            expandAll();
+        }
+    }
+
+    function updateStats() {
+        const total = document.querySelectorAll('.card .answer').length;
+        const shown = document.querySelectorAll('.card .answer.show').length;
+        document.getElementById('totalCount').textContent = total;
+        document.getElementById('showCount').textContent = shown;
+        document.getElementById('totalCards').textContent = total;
+    }
+
+    // 初始化时所有答案隐藏，统计更新
+    document.addEventListener('DOMContentLoaded', function() {
+        // 确保所有答案默认隐藏（HTML中已隐藏，但以防万一）
+        document.querySelectorAll('.card .answer').forEach(ans => ans.classList.remove('show'));
+        document.querySelectorAll('.card .arrow').forEach(a => a.classList.remove('open'));
+        updateStats();
+
+        // 对于已用内联onclick的卡片，不做额外操作，保留点击功能。
+        // 但onclick绑定在全局作用域，可正常工作。
+    });
+
+    // 可选：支持键盘快捷键 A 展开/收起
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'a' || e.key === 'A') {
+            if (!e.ctrlKey && !e.metaKey && !e.altKey) {
+                e.preventDefault();
+                toggleAll();
+            }
+        }
+    });
+
+    // 暴露到全局供HTML内联调用
+    window.toggleCard = toggleCard;
+    window.expandAll = expandAll;
+    window.collapseAll = collapseAll;
+    window.toggleAll = toggleAll;
+</script>
+
+</body>
+</html>
